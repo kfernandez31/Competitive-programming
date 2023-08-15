@@ -47,7 +47,5 @@ int main()
         cout << (path_exists(a, b)? "T" : "N") << "\n";
     }
     
-
-
     return 0;
 }

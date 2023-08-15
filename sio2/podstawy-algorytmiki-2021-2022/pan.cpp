@@ -4,12 +4,10 @@ using namespace std;
 using uint = unsigned;
 using ll   = long long;
 using ull  = unsigned ll;
-using pii  = pair<int, int>;
 
-#define endl         "\n"
-#define fast_io      ios_base::sync_with_stdio(0); cin.tie(0)
-#define first        st
-#define second       nd
+#define endl "\n"
+#define first st
+#define second nd
 #define ALPHABET_LEN 26
 
 inline int ctoi(char c) { return c - 'a'; }
@@ -24,8 +22,32 @@ template<typename Arr, typename Len> inline void print_arr(const Arr& arr, const
     cout << endl;
 }
 
+int freq[ALPHABET_LEN];
+string s1, s2;
+
+string solve() {
+    for (char c : s1) 
+        freq[ctoi(c)]++;
+    for (char c : s2) 
+        freq[ctoi(c)]--;
+    
+    int diffs = 0;
+    for (int i = 0; i < ALPHABET_LEN; i++) 
+        diffs += abs(freq[i]);
+    
+    if (diffs == 0)
+        return "ANAGRAMY";
+    else if (diffs == 2)
+        return "PRAWIE";
+    else 
+        return "NIE";
+}
+
 int main() {
-    fast_io;
+    ios_base::sync_with_stdio(0); cin.tie(0);
+
+    cin >> s1 >> s2;
+    cout << solve() << endl;
 
     return 0;
 }

@@ -9,7 +9,7 @@ unsigned long long pierw(unsigned long long x) {
 //    for (; i * i < n; i++);
 //    cout << i << "\n";
 
-    unsigned long long low = 0, high = x+1;
+    unsigned long long low = 0, high = x;
     while (high - low > 1) {
         unsigned long long mid = (low + high) / 2;
         if (mid * mid <= x)

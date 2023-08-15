@@ -17,30 +17,23 @@ inline long long safe_mod(long long x) {
 }
 
 void push(int idx, long long x) {
-    while (!q.empty() && q.front().value < x) {
+    while (!q.empty() && q.front().value < x) 
         q.pop_front();
-    }
     q.push_front({idx, x});
-    while (!q.empty() && q.back().index - idx > k) {
+    while (!q.empty() && q.back().index - idx > k) 
         q.pop_back();
-    }
-}
-
-long long pop() {
-    return q.back().value;
 }
 
 int main() {
     ios_base::sync_with_stdio(0); cin.tie(0);
     cin >> n >> k >> a >> b >> MOD >> arr[1]; 
-    for (int i = 2; i <= n; i++) {
-        arr[i] = safe_mod(safe_mod(a * arr[i - 1]) + b);
-    }
-
+    for (int i = 2; i <= n; i++) 
+        arr[i] = safe_mod(a * arr[i - 1] + b);
+    
     long long result = 0;
     for (int i = n; i >= 1; i--) {
         push(i, arr[i]);
-        result += pop();
+        result += q.back().value;
     }        
     cout << result << "\n";
 }

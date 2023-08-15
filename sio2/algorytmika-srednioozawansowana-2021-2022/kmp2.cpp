@@ -4,10 +4,8 @@ using namespace std;
 using uint = unsigned;
 using ll   = long long;
 using ull  = unsigned ll;
-using pii  = pair<int, int>;
 
 #define endl         "\n"
-#define fast_io      ios_base::sync_with_stdio(0); cin.tie(0)
 #define first        st
 #define second       nd
 #define ALPHABET_LEN 26
@@ -24,8 +22,48 @@ template<typename Arr, typename Len> inline void print_arr(const Arr& arr, const
     cout << endl;
 }
 
+const int maxN = 8e6;
+const int maxM = 8e6;
+int n, m;
+string txt;
+string pat;
+int lps[maxN];
+
+void make_lps() {
+	int len = 0, i = 1;
+	while (i < n)
+		if (pat[i] == pat[len])
+			lps[i++] = ++len;
+		else if (len == 0) 
+            lps[i++] = 0;
+        else
+            len = lps[len - 1];
+}
+
+void kmp() {
+    int i = 0, j = 0;
+    while (i < m) {
+        if (txt[i] == pat[j]) {
+            ++i;
+            ++j;
+            if (j == n) {
+                cout << i - n + 1 << endl; // match was n to the left
+                j = lps[j - 1];
+            }
+        } else if (j == 0)
+            ++i;
+        else
+            j = lps[j - 1];
+    }
+}
+
 int main() {
-    fast_io;
+    ios_base::sync_with_stdio(0); cin.tie(0);
+
+    cin >> n >> m >> pat >> txt;
+
+    make_lps();
+    kmp();
 
     return 0;
 }
