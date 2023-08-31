@@ -1,0 +1,23 @@
+// Approach: Floyd's tortoise and hare algorithm.
+// TC: O(logn)
+// SC: O(logn)
+class Solution {
+    inline int next(int n) {
+        int sum = 0;
+        while (n) {
+            int dig = n % 10;
+            sum    += dig * dig;
+            n      /= 10;
+        }
+        return sum;
+    }
+public:
+    bool isHappy(int n) {
+        int slow = n, fast = n;
+        do {
+            slow = next(slow);
+            fast = next(next(fast));
+        } while (slow != fast);
+        return slow == 1;
+    }
+};
