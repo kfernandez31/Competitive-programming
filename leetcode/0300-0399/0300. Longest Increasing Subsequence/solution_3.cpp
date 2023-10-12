@@ -10,7 +10,7 @@ public:
     int query(int r) {
         int ans = 0;
         for (; r > 0; r -= lsb(r)) 
-            ans  = max(ans, data[r]);
+            ans = max(ans, data[r]);
         return ans;
     }
     

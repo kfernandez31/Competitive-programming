@@ -30,4 +30,3 @@ public:
         return intervals;
     }
 };
-
