@@ -19,7 +19,7 @@ public:
             int y = j + p - 1 < n ? ys[j + p - 1] : INT_MAX;
 
             return x < y ? aux(i + p, j, k - p) : aux(i, j + p, k - p);
-        };
+         };
 
         int a = aux(0, 0, (m + n + 1) / 2);
         int b = aux(0, 0, (m + n + 2) / 2);

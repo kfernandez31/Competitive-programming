@@ -3,7 +3,6 @@
 // SC: O(2n) = O(n)
 class Solution {
 public:
-    /****** Solution 1: prefix/suffis maximums ******/
     int trap(vector<int>& height) {
         int n = height.size();
         vector<int> pref_max(n), suf_max(n);

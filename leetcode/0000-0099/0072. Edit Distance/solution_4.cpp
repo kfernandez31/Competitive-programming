@@ -1,10 +1,12 @@
 // Approach: Bottom-up DP w/space optimization.
 // TC: O(mn)
-// SC: O(n)
+// SC: O(min(m,n))
 class Solution {
 public:
     int minDistance(string& src, string& dst) {
         int m = src.size(), n = dst.size();
+        if (m > n)
+            return minDistance(dst, src);
         vector<int> dp(n + 1);   
         iota(dp.begin() + 1, dp.end(), 1);  
         

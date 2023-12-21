@@ -6,7 +6,7 @@ public:
     bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
         vector<int> indegree(numCourses);
         vector<vector<int>> graph(numCourses);
-        for (const auto& p : prerequisites) {
+        for (auto& p : prerequisites) {
             graph[p[1]].push_back(p[0]);
             ++indegree[p[0]];
         }

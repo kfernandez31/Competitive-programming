@@ -1,4 +1,4 @@
-// Approach: Find the k+1st node, reverse the k nodes before it, and then connect what was before them to the current node.
+// Approach: Find the first and the last nodes of the current group, reverse the group, pin the previous group's end to its new start and pin its end to the start of the next group.
 // TC: O(n)
 // SC: O(1)
 class Solution {
@@ -6,52 +6,38 @@ class Solution {
         ListNode *prev = nullptr, *cur = head;
         while (cur) {
             ListNode* next = cur->next;
-            cur->next      = prev;
-            prev           = cur;
-            cur            = next;
+            cur->next = prev;
+            prev = cur;
+            cur = next;
         }
         return prev;
     }
 public:
     ListNode* reverseKGroup(ListNode* head, int k) {
-        if (!head)
-            return nullptr;
-        if (k == 1)
+        if (!head || k == 1)
             return head;
-        ListNode *new_head = head;
-        ListNode *prev = nullptr, *cur = head;
-        ListNode *group_head = head, *prev_group_tail = nullptr;
 
-        while (cur->next) 
-            cur = cur->next;
-        ListNode dummy(42);
-        cur->next = &dummy;
+        ListNode dummy(42, head);
+        ListNode* cur = &dummy;
+        while (cur) {
+            ListNode* first = cur->next;
+            ListNode* last  = first;
+            for (int i = 0; last && i < k - 1; ++i) 
+                last = last->next;
+            if (!last)
+                break;
 
-        cur = head;
-        for (int i = 0; cur; ++i) {
-            if (i == k) {
-                prev->next = nullptr;
-                ListNode* rev = reverse(group_head);
+            ListNode* next = last->next;
+            last->next = nullptr;
 
-                if (new_head == head)
-                    new_head = rev;
+            ListNode* rev = reverse(first);
+            cur->next = rev;
 
-                if (prev_group_tail)
-                    prev_group_tail->next = rev;
+            first->next = next;
 
-                i = 0;
-                group_head->next = cur;
-                prev_group_tail = group_head;
-                group_head = cur;
-            }
-            prev = cur;
-            cur  = cur->next;
+            cur = first;
         }
 
-        cur = new_head;
-        while (cur->next != &dummy) 
-            cur = cur->next;
-        cur->next = nullptr;
-        return new_head;
+        return dummy.next;
     }
 };

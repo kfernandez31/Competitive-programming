@@ -10,6 +10,8 @@ public:
 
         unordered_set<vector<int>> ans_set;
         for (int i = 0; i < n - 2; ++i) {
+            if (0 < i && nums[i] == nums[i - 1])
+                continue;
             int j = i + 1;
             int k = n - 1;
             while (j < k) {
